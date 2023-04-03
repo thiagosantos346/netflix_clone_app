@@ -36,4 +36,4 @@ class MainTabBarViewController: UITabBarController {
 
 }
 
-// https://youtu.be/KCgYDCKqato?t=1313 - continue daqui
+// https://youtu.be/KCgYDCKqato?t=2970 - continue daqui
