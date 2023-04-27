@@ -27,16 +27,50 @@ class HomeViewController: UIViewController {
         homeFeedTable.delegate = self
         homeFeedTable.dataSource = self
         
+        configureNavbar()
+        
         let headerView = HeroHeaderUIView(
             frame : CGRect(
                 x : 0,
                 y : 0,
                 width : view.bounds.width,
-                height : 450
+                height : 500
             )
         )
         
         homeFeedTable.tableHeaderView = headerView
+    }
+
+    func configureNavbar(){
+        var image = UIImage(named: "netflixLogo")
+        image = image?.withRenderingMode(.alwaysOriginal)
+        image = image?.withAlignmentRectInsets(UIEdgeInsets(top: 0, left: -95, bottom: -10, right: 0))
+        
+        navigationItem.leftBarButtonItems = [
+            UIBarButtonItem(
+                image: image,
+                style: .done,
+                target: self,
+                action: nil
+            )
+        ]
+        
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(
+                image: UIImage(systemName: "person"),
+                style: .done,
+                target: self,
+                action: nil
+            ),
+            UIBarButtonItem(
+                image: UIImage(systemName: "play.rectangle"),
+                style: .done,
+                target: self,
+                action: nil
+            )
+        ]
+        
+        navigationController?.navigationBar.tintColor = .white
     }
     
     override func viewDidLayoutSubviews() {
@@ -75,6 +109,13 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let defaultOffset = view.safeAreaInsets.top
+        let offset = scrollView.contentOffset.y + defaultOffset
+        
+        navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
     }
     
 }
